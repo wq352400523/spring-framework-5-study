@@ -1,0 +1,7 @@
+1.tomcat是servlet的容器，spring中的org.springframework.web.servlet.DispatcherServlet最终继承于Servlet类，而这个类正是tomcat与spring-web的桥梁；
+2.任何Spring Web的entry point，都是servlet；
+3.filter是tomcat干的；拦截器是springmvc干的；
+4.这里面会配置两个Spring容器，父容器是通过监听ServletContextListener上下文事件通过ContextLoaderListener初始化并加载所需要的容器环境，子容器就是当初始化Servlet时加载用于SpringMVC功能的容器环境。
+5.web.xml中加载顺序：ServletContext -> listener -> filter -> servlet；ServletContext就是一个键值对，服务器会为每一个工程创建一个对象，这个对象全局唯一，而且工程内部的所有servlet都共享这个对象，内容从context-param配置节中获取；
+6.listener:启动web项目时，触发listener类的contextInitialized；listener中ContextLoaderListener监听器的作用就是启动Web容器时，监听servletContext对象的变化，获取servletContext对象的<context-param>，来自动装配ApplicationContext的配置信息。（即加载applicationContext.xml文件）；
+7.
